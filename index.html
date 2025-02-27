@@ -17,6 +17,7 @@
             background-color: #ccc;
             text-align: center;
             font-weight: bold;
+            cursor: pointer; /* Para indicar que se puede hacer clic */
         }
     </style>
 </head>
@@ -28,10 +29,16 @@
         <td><input type="number" id="cantidad" value="20"></td>
     </tr>
     <tr>
-        <td>Precio por ítem:</td>
+        <td>Precio por ítem:</td>
         <td><input type="number" id="precio" value="3"></td>
+        <td id="calcular-button" class="button">Totalizar</td>
+    </tr>
+    <tr>
+        <td colspan="3" id="resultado-neto"></td>
     </tr>
 </table>
+
+<script type="module" src="./src/presenter.js"></script>
 
 </body>
 </html>
