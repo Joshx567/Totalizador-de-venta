@@ -21,9 +21,11 @@ estadoSelect.addEventListener("change", () => {
 calcularButton.addEventListener("click", () => {
     const cantidad = Number.parseInt(cantidadInput.value);
     const precio = Number.parseInt(precioInput.value);
+    const estado = estadoSelect.value;
+    const impuesto = impuestos[estado] || 0;
 
     if (!isNaN(cantidad) && !isNaN(precio)) {
-        resultadoNeto.innerHTML = "<p>Resultado Neto: " + calcularNeto(cantidad, precio) + "</p>";
+        resultadoNeto.innerHTML = `<p>Total con impuesto: ${calcularNeto(cantidad, precio, impuesto)}</p>`;
     } else {
         resultadoNeto.innerHTML = "<p>Ingrese valores válidos.</p>";
     }
