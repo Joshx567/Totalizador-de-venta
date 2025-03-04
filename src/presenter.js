@@ -7,9 +7,16 @@ const resultadoNeto = document.querySelector("#resultado-neto");
 const estadoSelect = document.querySelector("#estado");
 const estadoSeleccionado = document.querySelector("#estado-seleccionado");
 
+const impuestos = {
+    CA: 8.25
+};
+
 estadoSelect.addEventListener("change", () => {
-    estadoSeleccionado.innerHTML = `<p>Estado seleccionado: ${estadoSelect.value}</p>`;
+    const estado = estadoSelect.value;
+    const impuesto = impuestos[estado] || 0;
+    estadoSeleccionado.innerHTML = `<p>Estado seleccionado: ${estado} - Impuesto: ${impuesto}%</p>`;
 });
+
 
 calcularButton.addEventListener("click", () => {
     const cantidad = Number.parseInt(cantidadInput.value);
