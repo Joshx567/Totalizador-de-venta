@@ -34,21 +34,20 @@
         <td id="calcular-button" class="button">Totalizar</td>
     </tr>
     <tr>
+        <td>Seleccionar Estado:</td>
+        <td>
+            <select id="estado">
+                <option value="CA">California (CA)</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3" id="estado-seleccionado"></td>
+    </tr>
+    <tr>
         <td colspan="3" id="resultado-neto"></td>
     </tr>
 </table>
-
-<tr>
-    <td>Seleccionar Estado:</td>
-    <td>
-        <select id="estado">
-            <option value="CA">California (CA)</option>
-        </select>
-    </td>
-</tr>
-<tr>
-    <td colspan="3" id="estado-seleccionado"></td>
-</tr>
 
 <script type="module" src="./src/presenter.js"></script>
 
