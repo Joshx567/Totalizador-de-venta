@@ -5,18 +5,21 @@ const precioInput = document.querySelector("#precio");
 const calcularButton = document.querySelector("#calcular-button");
 const resultadoNeto = document.querySelector("#resultado-neto");
 const estadoSelect = document.querySelector("#estado");
-const estadoSeleccionado = document.querySelector("#estado-seleccionado");
+const impuestoElemento = document.querySelector("#impuesto");
 
 const impuestos = {
     CA: 8.25
 };
 
-estadoSelect.addEventListener("change", () => {
+function actualizarImpuesto() {
     const estado = estadoSelect.value;
     const impuesto = impuestos[estado] || 0;
-    estadoSeleccionado.innerHTML = `<p>Estado seleccionado: ${estado} - Impuesto: ${impuesto}%</p>`;
-});
+    impuestoElemento.innerHTML = `<p>${impuesto}%</p>`;
+}
 
+actualizarImpuesto();
+
+estadoSelect.addEventListener("change", actualizarImpuesto);
 
 calcularButton.addEventListener("click", () => {
     const cantidad = Number.parseInt(cantidadInput.value);
