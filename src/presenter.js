@@ -4,6 +4,12 @@ const cantidadInput = document.querySelector("#cantidad");
 const precioInput = document.querySelector("#precio");
 const calcularButton = document.querySelector("#calcular-button");
 const resultadoNeto = document.querySelector("#resultado-neto");
+const estadoSelect = document.querySelector("#estado");
+const estadoSeleccionado = document.querySelector("#estado-seleccionado");
+
+estadoSelect.addEventListener("change", () => {
+    estadoSeleccionado.innerHTML = `<p>Estado seleccionado: ${estadoSelect.value}</p>`;
+});
 
 calcularButton.addEventListener("click", () => {
     const cantidad = Number.parseInt(cantidadInput.value);
