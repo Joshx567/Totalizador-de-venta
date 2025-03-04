@@ -10,7 +10,8 @@ const impuestoElemento = document.querySelector("#impuesto");
 const impuestos = {
     CA: 8.25,
     AL: 4,
-    NV: 8
+    NV: 8,
+    UT: 6.65
 };
 
 function actualizarImpuesto() {
