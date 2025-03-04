@@ -28,6 +28,8 @@ function calcularDescuento(totalSinImpuesto) {
         descuento = 3;
     } else if (totalSinImpuesto >= 3000 && totalSinImpuesto < 7000) {
         descuento = 5;
+    } else if (totalSinImpuesto >= 7000 && totalSinImpuesto < 10000) {
+        descuento = 7;
     }
 
     const descuentoAplicado = totalSinImpuesto * (descuento / 100);
