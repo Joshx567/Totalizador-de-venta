@@ -12,7 +12,8 @@ const impuestos = {
     CA: 8.25,
     AL: 4,
     NV: 8,
-    UT: 6.65
+    UT: 6.65,
+    TX: 6.25
 };
 
 function actualizarImpuesto() {
