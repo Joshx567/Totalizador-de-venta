@@ -21,27 +21,50 @@ function actualizarImpuesto() {
     impuestoElemento.innerHTML = `<p>${impuesto}%</p>`;
 }
 
-function actualizarDescuento() {
-    descuentoElemento.innerHTML = `<p>0%</p>`;
+function calcularDescuento(totalSinImpuesto) {
+    let descuento = 0;
+
+    if (totalSinImpuesto >= 1000 && totalSinImpuesto < 3000) {
+        descuento = 3;
+    }
+
+    const descuentoAplicado = totalSinImpuesto * (descuento / 100);
+    const precioConDescuento = totalSinImpuesto - descuentoAplicado;
+
+    descuentoElemento.innerHTML = `<p>${descuento}%</p>`;
+
+    return precioConDescuento.toFixed(2) + "$";
+}
+
+function calcularTotalConImpuesto(totalConDescuento, impuesto) {
+    const totalConImpuesto = totalConDescuento + (totalConDescuento * (impuesto / 100));
+    return totalConImpuesto.toFixed(2) + "$";
 }
 
 actualizarImpuesto();
-actualizarDescuento();
+descuentoElemento.innerHTML = `<p>0%</p>`;
 
 estadoSelect.addEventListener("change", () => {
     actualizarImpuesto();
-    actualizarDescuento();
+    descuentoElemento.innerHTML = `<p>0%</p>`;
 });
 
 calcularButton.addEventListener("click", () => {
-    const cantidad = Number.parseInt(cantidadInput.value);
-    const precio = Number.parseInt(precioInput.value);
+    const cantidad = parseInt(cantidadInput.value);
+    const precio = parseFloat(precioInput.value);
     const estado = estadoSelect.value;
     const impuesto = impuestos[estado] || 0;
 
-    if (!isNaN(cantidad) && !isNaN(precio)) {
-        resultadoNeto.innerHTML = `<p>Total con impuesto: ${calcularNeto(cantidad, precio, impuesto)}</p>`;
-    } else {
+    if (isNaN(cantidad) || isNaN(precio)) {
         resultadoNeto.innerHTML = "<p>Ingrese valores válidos.</p>";
+        return;
     }
+
+    const totalSinImpuesto = cantidad * precio;
+
+    const precioConDescuento = calcularDescuento(totalSinImpuesto);
+
+    const totalConImpuesto = calcularTotalConImpuesto(parseFloat(precioConDescuento), impuesto);
+
+    resultadoNeto.innerHTML = `<p>Total con impuesto: ${totalConImpuesto}</p>`;
 });
