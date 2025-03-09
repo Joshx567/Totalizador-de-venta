@@ -25,7 +25,8 @@ const categorias = {
     "Bebidas Alcoholicas": { impuesto: 7, descuento: 0 },
     "Material de Escritorio": { impuesto: 0, descuento: 1.5 },
     "Muebles": { impuesto: 3, descuento: 0 },
-    "Electronicos": { impuesto: 4, descuento: 1 }
+    "Electronicos": { impuesto: 4, descuento: 1 },
+    "Vestimenta": { impuesto: 2, descuento: 0 }
 };
 
 function actualizarCategoria() {
