@@ -20,7 +20,8 @@ const impuestos = {
 };
 
 const categorias = {
-    "Varios": { impuesto: 0, descuento: 0 }
+    "Varios": { impuesto: 0, descuento: 0 },
+    "Alimentos": { impuesto: 0, descuento: 2 }
 };
 
 function actualizarCategoria() {
