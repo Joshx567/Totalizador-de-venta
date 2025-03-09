@@ -7,6 +7,9 @@ const resultadoNeto = document.querySelector("#resultado-neto");
 const estadoSelect = document.querySelector("#estado");
 const impuestoElemento = document.querySelector("#impuesto");
 const descuentoElemento = document.querySelector("#descuento");
+const categoriaSelect = document.querySelector("#categoria");
+const impuestoAdicionalElemento = document.querySelector("#impuesto-adicional");
+const descuentoAdicionalElemento = document.querySelector("#descuento-adicional");
 
 const impuestos = {
     CA: 8.25,
@@ -15,6 +18,21 @@ const impuestos = {
     UT: 6.65,
     TX: 6.25
 };
+
+const categorias = {
+    "Varios": { impuesto: 0, descuento: 0 }
+};
+
+function actualizarCategoria() {
+    const categoria = categoriaSelect.value;
+    const { impuesto, descuento } = categorias[categoria] || { impuesto: 0, descuento: 0 };
+
+    impuestoAdicionalElemento.innerHTML = `<p>${impuesto}%</p>`;
+    descuentoAdicionalElemento.innerHTML = `<p>${descuento}%</p>`;
+}
+
+actualizarCategoria();
+categoriaSelect.addEventListener("change", actualizarCategoria);
 
 function actualizarImpuesto() {
     const estado = estadoSelect.value;
