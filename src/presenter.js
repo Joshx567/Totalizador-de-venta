@@ -88,7 +88,10 @@ calcularButton.addEventListener("click", () => {
     const cantidad = parseInt(cantidadInput.value);
     const precio = parseFloat(precioInput.value);
     const estado = estadoSelect.value;
+    const categoria = categoriaSelect.value;
+
     const impuesto = impuestos[estado] || 0;
+    const { impuesto: impuestoAdicional, descuento: descuentoAdicional } = categorias[categoria] || { impuesto: 0, descuento: 0 };
 
     if (isNaN(cantidad) || isNaN(precio)) {
         resultadoNeto.innerHTML = "<p>Ingrese valores válidos.</p>";
@@ -97,9 +100,12 @@ calcularButton.addEventListener("click", () => {
 
     const totalSinImpuesto = cantidad * precio;
 
-    const precioConDescuento = calcularDescuento(totalSinImpuesto);
+    let precioConDescuento = parseFloat(calcularDescuento(totalSinImpuesto));
 
-    const totalConImpuesto = calcularTotalConImpuesto(parseFloat(precioConDescuento), impuesto);
+    const descuentoExtraAplicado = precioConDescuento * (descuentoAdicional / 100);
+    precioConDescuento -= descuentoExtraAplicado;
+
+    const totalConImpuesto = calcularTotalConImpuesto(precioConDescuento, impuesto, impuestoAdicional);
 
     resultadoNeto.innerHTML = `<p>Total con impuesto: ${totalConImpuesto}</p>`;
 });
