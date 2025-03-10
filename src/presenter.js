@@ -73,9 +73,15 @@ function calcularDescuento(totalSinImpuesto, descuentoAdicional) {
 
 
 function calcularTotalConImpuesto(totalConDescuento, impuesto, impuestoAdicional) {
-    const totalConImpuestos = totalConDescuento + (totalConDescuento * ((impuesto + impuestoAdicional) / 100));
-    return totalConImpuestos.toFixed(2) + "$";
+    const impuestoTotal = impuesto + impuestoAdicional;
+    const totalConImpuesto = totalConDescuento + (totalConDescuento * (impuestoTotal / 100));
+
+    impuestoElemento.innerHTML = `<p>${impuesto}%</p>`;
+    impuestoAdicionalElemento.innerHTML = `<p>${impuestoAdicional}%</p>`;
+
+    return totalConImpuesto.toFixed(2) + "$";
 }
+
 
 actualizarImpuesto();
 descuentoElemento.innerHTML = `<p>0%</p>`;
