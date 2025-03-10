@@ -2,11 +2,13 @@ import calcularNeto from "./calcularNeto.js";
 
 const cantidadInput = document.querySelector("#cantidad");
 const precioInput = document.querySelector("#precio");
+const pesoVolumetrico = document.querySelector("#pesovolumetrico");
 const calcularButton = document.querySelector("#calcular-button");
 const resultadoNeto = document.querySelector("#resultado-neto");
 const estadoSelect = document.querySelector("#estado");
 const impuestoElemento = document.querySelector("#impuesto");
 const descuentoElemento = document.querySelector("#descuento");
+const costoElemento = document.querySelector("#costo-envio-adicional");
 const categoriaSelect = document.querySelector("#categoria");
 const impuestoAdicionalElemento = document.querySelector("#impuesto-adicional");
 const descuentoAdicionalElemento = document.querySelector("#descuento-adicional");
@@ -17,6 +19,16 @@ const impuestos = {
     NV: 8,
     UT: 6.65,
     TX: 6.25
+};
+
+const pesovolum = {
+    "Primer": 0,
+    "Segundo": 3.5,
+    "Tercero": 5,
+    "Cuarto": 6,
+    "Quinto": 6.5,
+    "Sexto": 8,
+    "Septimo": 9
 };
 
 const categorias = {
@@ -39,6 +51,16 @@ function actualizarCategoria() {
 
 actualizarCategoria();
 categoriaSelect.addEventListener("change", actualizarCategoria);
+
+function actualizarPesovolumetrico()
+{ 
+    const pesovolumetrico = pesoVolumetrico.value;
+    const costoenvio = pesovolum[pesovolumetrico] || 0;
+    costoElemento.innerHTML = `<p>$${costoenvio}</p>`;
+}
+
+actualizarPesovolumetrico();
+pesoVolumetrico.addEventListener("change", actualizarPesovolumetrico);
 
 function actualizarImpuesto() {
     const estado = estadoSelect.value;
@@ -71,13 +93,10 @@ function calcularDescuento(totalSinImpuesto, descuentoAdicional) {
     return precioConDescuento.toFixed(2);
 }
 
-
 function calcularTotalConImpuesto(totalConDescuento, impuesto, impuestoAdicional) {
     const totalConImpuesto = totalConDescuento + (totalConDescuento * ((impuesto + impuestoAdicional) / 100));
     return totalConImpuesto.toFixed(2) + "$";
 }
-
-
 
 actualizarImpuesto();
 descuentoElemento.innerHTML = `<p>0%</p>`;
@@ -92,8 +111,10 @@ calcularButton.addEventListener("click", () => {
     const precio = parseFloat(precioInput.value);
     const estado = estadoSelect.value;
     const categoria = categoriaSelect.value;
+    const pesoSeleccionado = pesoVolumetrico.value; 
 
     const impuesto = impuestos[estado] || 0;
+    const costoEnvioporPeso = pesovolum[pesoSeleccionado] || 0;
     const { impuesto: impuestoAdicional, descuento: descuentoAdicional } = categorias[categoria] || { impuesto: 0, descuento: 0 };
 
     if (isNaN(cantidad) || isNaN(precio)) {
@@ -101,8 +122,8 @@ calcularButton.addEventListener("click", () => {
         return;
     }
 
-    const totalSinImpuesto = cantidad * precio;
-
+    const costoEnvioTotal = cantidad * costoEnvioporPeso;
+    const totalSinImpuesto = cantidad * precio + costoEnvioTotal;
     let precioConDescuento = parseFloat(calcularDescuento(totalSinImpuesto, descuentoAdicional));
 
     const totalConImpuesto = calcularTotalConImpuesto(precioConDescuento, impuesto, impuestoAdicional);
