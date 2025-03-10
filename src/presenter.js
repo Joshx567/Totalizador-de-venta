@@ -147,9 +147,17 @@ calcularButton.addEventListener("click", () => {
     const totalSinImpuesto = cantidad * precio + costoEnvioTotal;
     let precioConDescuento = parseFloat(calcularDescuento(totalSinImpuesto, descuentoAdicional));
 
-    const totalConImpuesto = calcularTotalConImpuesto(precioConDescuento, impuesto, impuestoAdicional);
+    let totalConImpuesto = calcularTotalConImpuesto(precioConDescuento, impuesto, impuestoAdicional);
+
+    totalConImpuesto = parseFloat(totalConImpuesto.replace("$", ""));
+
+    if (tipoDeCliente === "Recurrente" && totalConImpuesto > 3000) {
+        totalConImpuesto -= 100;
+    } else if (tipoDeCliente === "Especial" && totalConImpuesto > 7000) {
+        totalConImpuesto -= 200;
+    }
 
     resultadoNeto.innerHTML = `
-        <p>Total con impuesto: ${totalConImpuesto}</p>
+        <p>Total con impuesto: ${totalConImpuesto.toFixed(2)}$</p>
     `;
 });
