@@ -31,7 +31,6 @@
     <tr>
         <td>Precio por ítem:</td>
         <td><input type="number" id="precio" value="3"></td>
-        <td id="calcular-button" class="button">Totalizar</td>
     </tr>
     <tr>
         <td>Peso volumetrico:</td>
@@ -46,6 +45,21 @@
                 <option value="Septimo">Mas de 200</option>
             </select>
         </td>
+        <td>Costo de envio:</td>
+        <td colspan="2" id="costo-envio-adicional">0$</td>
+    </tr>
+    <tr>
+        <td>Tipo de cliente:</td>
+        <td>
+            <select id="tipo-cliente">
+                <option value="Normal">Normal</option>
+                <option value="Recurrente">Recurrente</option>
+                <option value="AntiguoRecurrente">Antiguo Recurrente</option>
+                <option value="Especial">Especial</option>
+            </select>
+        </td>
+        <td>Descuento en costo de envio:</td>
+        <td colspan="2" id="cliente-envio-adicional">0$</td>
     </tr>
     <tr>
         <td>Seleccionar Estado:</td>
@@ -73,6 +87,7 @@
                 <option value="vestimenta">Vestimenta</option>
             </select>
         </td>
+        <td id="calcular-button" class="button">Totalizar</td>
     </tr>    
     <tr>
         <td>Impuesto Adicional:</td>
@@ -81,10 +96,6 @@
     <tr>
         <td>Descuento Adicional:</td>
         <td colspan="2" id="descuento-adicional">0%</td>
-    </tr>
-    <tr>
-        <td>Costo de envio por Peso volumetrico:</td>
-        <td colspan="2" id="costo-envio-adicional">0%</td>
     </tr>
     <tr>
         <td>Precio Neto:</td>

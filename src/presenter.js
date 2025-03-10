@@ -3,12 +3,17 @@ import calcularNeto from "./calcularNeto.js";
 const cantidadInput = document.querySelector("#cantidad");
 const precioInput = document.querySelector("#precio");
 const pesoVolumetrico = document.querySelector("#pesovolumetrico");
+const tipoCliente = document.querySelector("#tipo-cliente");
+
 const calcularButton = document.querySelector("#calcular-button");
 const resultadoNeto = document.querySelector("#resultado-neto");
 const estadoSelect = document.querySelector("#estado");
+
 const impuestoElemento = document.querySelector("#impuesto");
 const descuentoElemento = document.querySelector("#descuento");
 const costoElemento = document.querySelector("#costo-envio-adicional");
+const clienteElemento = document.querySelector("#cliente-envio-adicional");
+
 const categoriaSelect = document.querySelector("#categoria");
 const impuestoAdicionalElemento = document.querySelector("#impuesto-adicional");
 const descuentoAdicionalElemento = document.querySelector("#descuento-adicional");
@@ -29,6 +34,13 @@ const pesovolum = {
     "Quinto": 6.5,
     "Sexto": 8,
     "Septimo": 9
+};
+
+const tipocliente = {
+    "Normal": 0,
+    "Recurrente": 0.5,
+    "AntiguoRecurrente": 1,
+    "Especial": 1.5
 };
 
 const categorias = {
@@ -61,6 +73,16 @@ function actualizarPesovolumetrico()
 
 actualizarPesovolumetrico();
 pesoVolumetrico.addEventListener("change", actualizarPesovolumetrico);
+
+function actualizarCliente()
+{ 
+    const tipodeCliente = tipoCliente.value;
+    const descuentocliente = tipocliente[tipodeCliente] || 0;
+    clienteElemento.innerHTML = `<p>${descuentocliente}%</p>`;
+}
+
+actualizarCliente();
+tipoCliente.addEventListener("change", actualizarCliente);
 
 function actualizarImpuesto() {
     const estado = estadoSelect.value;
@@ -112,9 +134,11 @@ calcularButton.addEventListener("click", () => {
     const estado = estadoSelect.value;
     const categoria = categoriaSelect.value;
     const pesoSeleccionado = pesoVolumetrico.value; 
+    const tipoDeCliente = tipoCliente.value;
 
     const impuesto = impuestos[estado] || 0;
     const costoEnvioporPeso = pesovolum[pesoSeleccionado] || 0;
+    const descuentoCliente = tipocliente[tipoDeCliente] || 0;
     const { impuesto: impuestoAdicional, descuento: descuentoAdicional } = categorias[categoria] || { impuesto: 0, descuento: 0 };
 
     if (isNaN(cantidad) || isNaN(precio)) {
@@ -122,7 +146,8 @@ calcularButton.addEventListener("click", () => {
         return;
     }
 
-    const costoEnvioTotal = cantidad * costoEnvioporPeso;
+    const costoEnvioBase = cantidad * costoEnvioporPeso;
+    const costoEnvioTotal = costoEnvioBase * (1 - descuentoCliente / 100);
     const totalSinImpuesto = cantidad * precio + costoEnvioTotal;
     let precioConDescuento = parseFloat(calcularDescuento(totalSinImpuesto, descuentoAdicional));
 
