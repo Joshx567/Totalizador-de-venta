@@ -65,7 +65,7 @@ function calcularDescuento(totalSinImpuesto, descuentoAdicional) {
     const descuentoAplicado = totalSinImpuesto * (descuentoTotal / 100);
     const precioConDescuento = totalSinImpuesto - descuentoAplicado;
 
-    descuentoElemento.innerHTML = `<p>${descuento}%</p>`;
+    descuentoElemento.innerHTML = `<p>${descuento + descuentoAdicional}%</p>`;
     descuentoAdicionalElemento.innerHTML = `<p>${descuentoAdicional}%</p>`;
 
     return precioConDescuento.toFixed(2);
@@ -103,12 +103,11 @@ calcularButton.addEventListener("click", () => {
 
     const totalSinImpuesto = cantidad * precio;
 
-    let precioConDescuento = parseFloat(calcularDescuento(totalSinImpuesto));
-
-    const descuentoExtraAplicado = precioConDescuento * (descuentoAdicional / 100);
-    precioConDescuento -= descuentoExtraAplicado;
+    let precioConDescuento = parseFloat(calcularDescuento(totalSinImpuesto, descuentoAdicional));
 
     const totalConImpuesto = calcularTotalConImpuesto(precioConDescuento, impuesto, impuestoAdicional);
 
-    resultadoNeto.innerHTML = `<p>Total con impuesto: ${totalConImpuesto}</p>`;
+    resultadoNeto.innerHTML = `
+        <p>Total con impuesto: ${totalConImpuesto}</p>
+    `;
 });
