@@ -1,5 +1,3 @@
-import calcularNeto from "./calcularNeto.js";
-
 const cantidadInput = document.querySelector("#cantidad");
 const precioInput = document.querySelector("#precio");
 const pesoVolumetrico = document.querySelector("#pesovolumetrico");
