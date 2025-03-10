@@ -42,13 +42,13 @@ const tipocliente = {
 };
 
 const categorias = {
-    "Varios": { impuesto: 0, descuento: 0 },
-    "Alimentos": { impuesto: 0, descuento: 2 },
-    "Bebidas Alcoholicas": { impuesto: 7, descuento: 0 },
-    "Material de Escritorio": { impuesto: 0, descuento: 1.5 },
-    "Muebles": { impuesto: 3, descuento: 0 },
-    "Electronicos": { impuesto: 4, descuento: 1 },
-    "Vestimenta": { impuesto: 2, descuento: 0 }
+    "varios": { impuesto: 0, descuento: 0 },
+    "alimentos": { impuesto: 0, descuento: 2 },
+    "bebidas": { impuesto: 7, descuento: 0 },
+    "escritorio": { impuesto: 0, descuento: 1.5 },
+    "muebles": { impuesto: 3, descuento: 0 },
+    "electronicos": { impuesto: 4, descuento: 1 },
+    "vestimenta": { impuesto: 2, descuento: 0 }
 };
 
 function actualizarCategoria() {
@@ -62,8 +62,7 @@ function actualizarCategoria() {
 actualizarCategoria();
 categoriaSelect.addEventListener("change", actualizarCategoria);
 
-function actualizarPesovolumetrico()
-{ 
+function actualizarPesovolumetrico() {
     const pesovolumetrico = pesoVolumetrico.value;
     const costoenvio = pesovolum[pesovolumetrico] || 0;
     costoElemento.innerHTML = `<p>$${costoenvio}</p>`;
@@ -72,8 +71,7 @@ function actualizarPesovolumetrico()
 actualizarPesovolumetrico();
 pesoVolumetrico.addEventListener("change", actualizarPesovolumetrico);
 
-function actualizarCliente()
-{ 
+function actualizarCliente() {
     const tipodeCliente = tipoCliente.value;
     const descuentocliente = tipocliente[tipodeCliente] || 0;
     clienteElemento.innerHTML = `<p>${descuentocliente}%</p>`;
@@ -131,7 +129,7 @@ calcularButton.addEventListener("click", () => {
     const precio = parseFloat(precioInput.value);
     const estado = estadoSelect.value;
     const categoria = categoriaSelect.value;
-    const pesoSeleccionado = pesoVolumetrico.value; 
+    const pesoSeleccionado = pesoVolumetrico.value;
     const tipoDeCliente = tipoCliente.value;
 
     const impuesto = impuestos[estado] || 0;
