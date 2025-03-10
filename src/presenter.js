@@ -61,14 +61,14 @@ function calcularDescuento(totalSinImpuesto, descuentoAdicional) {
         descuento = 15;
     }
 
-    let precioConDescuento = totalSinImpuesto - (totalSinImpuesto * (descuento / 100));
-
-    precioConDescuento -= precioConDescuento * (descuentoAdicional / 100);
+    const descuentoTotal = descuento + descuentoAdicional;
+    const descuentoAplicado = totalSinImpuesto * (descuentoTotal / 100);
+    const precioConDescuento = totalSinImpuesto - descuentoAplicado;
 
     descuentoElemento.innerHTML = `<p>${descuento}%</p>`;
     descuentoAdicionalElemento.innerHTML = `<p>${descuentoAdicional}%</p>`;
 
-    return precioConDescuento.toFixed(2) + "$";
+    return precioConDescuento.toFixed(2);
 }
 
 
