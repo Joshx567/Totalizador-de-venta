@@ -46,7 +46,7 @@ function actualizarImpuesto() {
     impuestoElemento.innerHTML = `<p>${impuesto}%</p>`;
 }
 
-function calcularDescuento(totalSinImpuesto) {
+function calcularDescuento(totalSinImpuesto, descuentoAdicional) {
     let descuento = 0;
 
     if (totalSinImpuesto >= 1000 && totalSinImpuesto < 3000) {
@@ -57,18 +57,20 @@ function calcularDescuento(totalSinImpuesto) {
         descuento = 7;
     } else if (totalSinImpuesto >= 10000 && totalSinImpuesto < 30000) {
         descuento = 10;
-    }
-    else if (totalSinImpuesto >= 30000) {
+    } else if (totalSinImpuesto >= 30000) {
         descuento = 15;
     }
 
-    const descuentoAplicado = totalSinImpuesto * (descuento / 100);
-    const precioConDescuento = totalSinImpuesto - descuentoAplicado;
+    let precioConDescuento = totalSinImpuesto - (totalSinImpuesto * (descuento / 100));
+
+    precioConDescuento -= precioConDescuento * (descuentoAdicional / 100);
 
     descuentoElemento.innerHTML = `<p>${descuento}%</p>`;
+    descuentoAdicionalElemento.innerHTML = `<p>${descuentoAdicional}%</p>`;
 
     return precioConDescuento.toFixed(2) + "$";
 }
+
 
 function calcularTotalConImpuesto(totalConDescuento, impuesto, impuestoAdicional) {
     const totalConImpuestos = totalConDescuento + (totalConDescuento * ((impuesto + impuestoAdicional) / 100));
